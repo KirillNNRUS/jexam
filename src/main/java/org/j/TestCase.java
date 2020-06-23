@@ -10,8 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,9 +28,9 @@ public class TestCase {
 
     @JacksonXmlProperty(localName = "failure")
     @JacksonXmlElementWrapper(useWrapping = false)
-    private List<Failure> failureList;
+    private Failure failure;
 
     @JacksonXmlProperty(localName = "error")
     @JacksonXmlElementWrapper(useWrapping = false)
-    private List<Error> errorList;
+    private Error error;
 }
