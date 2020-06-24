@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite tests="5" failures="0" time="0.402" name="github.com/recoilme/tgram">
+		<properties>
+			<property name="go.version" value="go1.14.4"></property>
+		</properties>
+		<testcase classname="tgram" name="TestLead" time="0.030"></testcase>
+		<testcase classname="tgram" name="TestTop" time="0.000"></testcase>
+		<testcase classname="tgram" name="TestAvatar" time="0.010"></testcase>
+		<testcase classname="tgram" name="TestWau" time="0.000"></testcase>
+		<testcase classname="tgram" name="TestSendEmail" time="0.000"></testcase>
+	</testsuite>
+</testsuites>

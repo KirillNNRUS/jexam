@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.jbotsim.io.format.xml.BuilderParserTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-06-16T15:10:54" hostname="runner-72989761-project-19412425-concurrent-0" time="0.143">
+  <properties/>
+  <testcase name="builderParserTest[0: io.jbotsim.io.format.xml.BuilderParserTest$$Lambda$175/638216429@15dc114b]" classname="io.jbotsim.io.format.xml.BuilderParserTest" time="0.048"/>
+  <testcase name="builderParserTest[1: io.jbotsim.io.format.xml.BuilderParserTest$$Lambda$176/735736922@60645e1d]" classname="io.jbotsim.io.format.xml.BuilderParserTest" time="0.026"/>
+  <testcase name="builderParserTest[2: io.jbotsim.io.format.xml.BuilderParserTest$$Lambda$177/1751675768@18e49eef]" classname="io.jbotsim.io.format.xml.BuilderParserTest" time="0.067"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

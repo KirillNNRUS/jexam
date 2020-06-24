@@ -1,0 +1,2145 @@
+=== RUN   TestParser
+    TestParser: go-junit-report_test.go:1546: Test 01-pass.txt
+    TestParser: go-junit-report_test.go:1546: Test 02-fail.txt
+    TestParser: go-junit-report_test.go:1546: Test 03-skip.txt
+    TestParser: go-junit-report_test.go:1546: Test 04-go_1_4.txt
+    TestParser: go-junit-report_test.go:1546: Test 05-no_xml_header.txt
+    TestParser: go-junit-report_test.go:1546: Test 06-mixed.txt
+    TestParser: go-junit-report_test.go:1546: Test 07-compiled_test.txt
+    TestParser: go-junit-report_test.go:1546: Test 08-parallel.txt
+    TestParser: go-junit-report_test.go:1546: Test 09-coverage.txt
+    TestParser: go-junit-report_test.go:1546: Test 10-multipkg-coverage.txt
+    TestParser: go-junit-report_test.go:1546: Test 11-go_1_5.txt
+    TestParser: go-junit-report_test.go:1546: Test 12-go_1_7.txt
+    TestParser: go-junit-report_test.go:1546: Test 13-syntax-error.txt
+    TestParser: go-junit-report_test.go:1546: Test 14-panic.txt
+    TestParser: go-junit-report_test.go:1546: Test 15-empty.txt
+    TestParser: go-junit-report_test.go:1546: Test 16-repeated-names.txt
+    TestParser: go-junit-report_test.go:1546: Test 17-race.txt
+    TestParser: go-junit-report_test.go:1546: Test 18-coverpkg.txt
+    TestParser: go-junit-report_test.go:1546: Test 19-pass.txt
+    TestParser: go-junit-report_test.go:1546: Test 20-parallel.txt
+    TestParser: go-junit-report_test.go:1546: Test 21-cached.txt
+    TestParser: go-junit-report_test.go:1546: Test 22-bench.txt
+    TestParser: go-junit-report_test.go:1546: Test 23-benchmem.txt
+    TestParser: go-junit-report_test.go:1546: Test 24-benchtests.txt
+    TestParser: go-junit-report_test.go:1546: Test 25-benchcount.txt
+    TestParser: go-junit-report_test.go:1546: Test 26-testbenchmultiple.txt
+    TestParser: go-junit-report_test.go:1546: Test 27-benchdecimal.txt
+    TestParser: go-junit-report_test.go:1546: Test 28-bench-1cpu.txt
+    TestParser: go-junit-report_test.go:1546: Test 29-bench-16cpu.txt
+    TestParser: go-junit-report_test.go:1546: Test 30-stdout.txt
+    TestParser: go-junit-report_test.go:1546: Test 31-syntax-error-test-binary.txt
+    TestParser: go-junit-report_test.go:1546: Test 32-failed-summary.txt
+--- PASS: TestParser (0.00s)
+=== RUN   TestJUnitFormatter
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 01-pass.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 02-fail.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="1" time="0.151" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020">
+        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        		</testcase>
+        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="1" time="0.151" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020">
+        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        		</testcase>
+        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 03-skip.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.150" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020">
+        			<skipped message="file_test.go:11: Skip message"></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.150" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020">
+        			<skipped message="file_test.go:11: Skip message"></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 04-go_1_4.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 05-no_xml_header.txt Report xml ==
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 06-mixed.txt Report xml ==
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name1" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name1" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="2" failures="1" time="0.151" name="package/name2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name2" name="TestOne" time="0.020">
+        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        		</testcase>
+        		<testcase classname="name2" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name1" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name1" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="2" failures="1" time="0.151" name="package/name2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name2" name="TestOne" time="0.020">
+        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        		</testcase>
+        		<testcase classname="name2" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 07-compiled_test.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="test/package">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="package" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="package" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="test/package">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="package" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="package" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 08-parallel.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.440" name="github.com/dmitris/test-go-junit-report">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="test-go-junit-report" name="TestDoFoo" time="0.270"></testcase>
+        		<testcase classname="test-go-junit-report" name="TestDoFoo2" time="0.160"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.440" name="github.com/dmitris/test-go-junit-report">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="test-go-junit-report" name="TestDoFoo" time="0.270"></testcase>
+        		<testcase classname="test-go-junit-report" name="TestDoFoo2" time="0.160"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 09-coverage.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="13.37"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="13.37"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 10-multipkg-coverage.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.400" name="package1/foo">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="10.0"></property>
+        		</properties>
+        		<testcase classname="foo" name="TestA" time="0.100"></testcase>
+        		<testcase classname="foo" name="TestB" time="0.300"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="4.200" name="package2/bar">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="99.8"></property>
+        		</properties>
+        		<testcase classname="bar" name="TestC" time="4.200"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.400" name="package1/foo">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="10.0"></property>
+        		</properties>
+        		<testcase classname="foo" name="TestA" time="0.100"></testcase>
+        		<testcase classname="foo" name="TestB" time="0.300"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="4.200" name="package2/bar">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="99.8"></property>
+        		</properties>
+        		<testcase classname="bar" name="TestC" time="4.200"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 11-go_1_5.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.050" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.030"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.050" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.030"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 12-go_1_7.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="18" failures="3" time="0.050" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.010"></testcase>
+        		<testcase classname="name" name="TestOne/Child" time="0.020"></testcase>
+        		<testcase classname="name" name="TestOne/Child#01" time="0.030"></testcase>
+        		<testcase classname="name" name="TestOne/Child=02" time="0.040"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.010"></testcase>
+        		<testcase classname="name" name="TestTwo/Child" time="0.020"></testcase>
+        		<testcase classname="name" name="TestTwo/Child#01" time="0.030"></testcase>
+        		<testcase classname="name" name="TestTwo/Child=02" time="0.040"></testcase>
+        		<testcase classname="name" name="TestThree" time="0.010"></testcase>
+        		<testcase classname="name" name="TestThree/a#1" time="0.020"></testcase>
+        		<testcase classname="name" name="TestThree/a#1/b#1" time="0.030"></testcase>
+        		<testcase classname="name" name="TestThree/a#1/b#1/c#1" time="0.040"></testcase>
+        		<testcase classname="name" name="TestFour" time="0.020">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#00" time="0.000">
+        			<failure message="Failed" type="">example.go:12: Expected abc  OBTAINED:&#xA;&#x9;xyz&#xA;example.go:123: Expected and obtained are different.</failure>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#01" time="0.000">
+        			<skipped message="example.go:1234: Not supported yet."></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#02" time="0.000"></testcase>
+        		<testcase classname="name" name="TestFive" time="0.000">
+        			<skipped message="example.go:1392: Not supported yet."></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestSix" time="0.000">
+        			<failure message="Failed" type="">example.go:371: This should not fail!</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="18" failures="3" time="0.050" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.010"></testcase>
+        		<testcase classname="name" name="TestOne/Child" time="0.020"></testcase>
+        		<testcase classname="name" name="TestOne/Child#01" time="0.030"></testcase>
+        		<testcase classname="name" name="TestOne/Child=02" time="0.040"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.010"></testcase>
+        		<testcase classname="name" name="TestTwo/Child" time="0.020"></testcase>
+        		<testcase classname="name" name="TestTwo/Child#01" time="0.030"></testcase>
+        		<testcase classname="name" name="TestTwo/Child=02" time="0.040"></testcase>
+        		<testcase classname="name" name="TestThree" time="0.010"></testcase>
+        		<testcase classname="name" name="TestThree/a#1" time="0.020"></testcase>
+        		<testcase classname="name" name="TestThree/a#1/b#1" time="0.030"></testcase>
+        		<testcase classname="name" name="TestThree/a#1/b#1/c#1" time="0.040"></testcase>
+        		<testcase classname="name" name="TestFour" time="0.020">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#00" time="0.000">
+        			<failure message="Failed" type="">example.go:12: Expected abc  OBTAINED:&#xA;&#x9;xyz&#xA;example.go:123: Expected and obtained are different.</failure>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#01" time="0.000">
+        			<skipped message="example.go:1234: Not supported yet."></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#02" time="0.000"></testcase>
+        		<testcase classname="name" name="TestFive" time="0.000">
+        			<skipped message="example.go:1392: Not supported yet."></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestSix" time="0.000">
+        			<failure message="Failed" type="">example.go:371: This should not fail!</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 13-syntax-error.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="passing1" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="passing2" name="TestB" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failing1" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing1/failing_test.go:15: undefined: x</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failing2" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing2/another_failing_test.go:20: undefined: y</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/setupfailing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="setupfailing1" name="[setup failed]" time="0.000">
+        			<failure message="Failed" type="">setupfailing1/failing_test.go:4: cannot find package &#34;other/package&#34; in any of:&#xA;&#x9;/path/vendor (vendor tree)&#xA;&#x9;/path/go/root (from $GOROOT)&#xA;&#x9;/path/go/path (from $GOPATH)</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="passing1" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="passing2" name="TestB" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failing1" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing1/failing_test.go:15: undefined: x</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failing2" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing2/another_failing_test.go:20: undefined: y</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/setupfailing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="setupfailing1" name="[setup failed]" time="0.000">
+        			<failure message="Failed" type="">setupfailing1/failing_test.go:4: cannot find package &#34;other/package&#34; in any of:&#xA;&#x9;/path/vendor (vendor tree)&#xA;&#x9;/path/go/root (from $GOROOT)&#xA;&#x9;/path/go/path (from $GOPATH)</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 14-panic.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="1" time="0.003" name="package/panic">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="panic" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: init&#xA;stacktrace</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.003" name="package/panic2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="panic2" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: init&#xA;stacktrace</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="1" time="0.003" name="package/panic">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="panic" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: init&#xA;stacktrace</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.003" name="package/panic2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="panic2" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: init&#xA;stacktrace</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 15-empty.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="0" failures="0" time="0.001" name="package/empty">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="0" failures="0" time="0.001" name="package/empty">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 16-repeated-names.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="0" time="0.001" name="package/repeated-names">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="0" time="0.001" name="package/repeated-names">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 17-race.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="1" time="0.015" name="race_test">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="race_test" name="TestRace" time="0.000">
+        			<failure message="Failed" type="">test output&#xA;2 0xc4200153d0&#xA;==================&#xA;WARNING: DATA RACE&#xA;Write at 0x00c4200153d0 by goroutine 7:&#xA;  race_test.TestRace.func1()&#xA;      race_test.go:13 +0x3b&#xA;&#xA;Previous write at 0x00c4200153d0 by goroutine 6:&#xA;  race_test.TestRace()&#xA;      race_test.go:15 +0x136&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;&#xA;Goroutine 7 (running) created at:&#xA;  race_test.TestRace()&#xA;      race_test.go:14 +0x125&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;&#xA;Goroutine 6 (running) created at:&#xA;  testing.(*T).Run()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:697 +0x543&#xA;  testing.runTests.func1()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:882 +0xaa&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;  testing.runTests()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:888 +0x4e0&#xA;  testing.(*M).Run()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:822 +0x1c3&#xA;  main.main()&#xA;      _test/_testmain.go:52 +0x20f&#xA;==================&#xA;testing.go:610: race detected during execution of test</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="1" time="0.015" name="race_test">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="race_test" name="TestRace" time="0.000">
+        			<failure message="Failed" type="">test output&#xA;2 0xc4200153d0&#xA;==================&#xA;WARNING: DATA RACE&#xA;Write at 0x00c4200153d0 by goroutine 7:&#xA;  race_test.TestRace.func1()&#xA;      race_test.go:13 +0x3b&#xA;&#xA;Previous write at 0x00c4200153d0 by goroutine 6:&#xA;  race_test.TestRace()&#xA;      race_test.go:15 +0x136&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;&#xA;Goroutine 7 (running) created at:&#xA;  race_test.TestRace()&#xA;      race_test.go:14 +0x125&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;&#xA;Goroutine 6 (running) created at:&#xA;  testing.(*T).Run()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:697 +0x543&#xA;  testing.runTests.func1()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:882 +0xaa&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;  testing.runTests()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:888 +0x4e0&#xA;  testing.(*M).Run()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:822 +0x1c3&#xA;  main.main()&#xA;      _test/_testmain.go:52 +0x20f&#xA;==================&#xA;testing.go:610: race detected during execution of test</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 18-coverpkg.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.400" name="package1/foo">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="10.0"></property>
+        		</properties>
+        		<testcase classname="foo" name="TestA" time="0.100"></testcase>
+        		<testcase classname="foo" name="TestB" time="0.300"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="4.200" name="package2/bar">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="99.8"></property>
+        		</properties>
+        		<testcase classname="bar" name="TestC" time="4.200"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.400" name="package1/foo">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="10.0"></property>
+        		</properties>
+        		<testcase classname="foo" name="TestA" time="0.100"></testcase>
+        		<testcase classname="foo" name="TestB" time="0.300"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="4.200" name="package2/bar">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        			<property name="coverage.statements.pct" value="99.8"></property>
+        		</properties>
+        		<testcase classname="bar" name="TestC" time="4.200"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 19-pass.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 20-parallel.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="3" time="3.010" name="pkg/parallel">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="parallel" name="FirstTest" time="2.000">
+        			<failure message="Failed" type="">Message from first&#xA;Supplemental from first&#xA;parallel_test.go:14: FirstTest error</failure>
+        		</testcase>
+        		<testcase classname="parallel" name="SecondTest" time="1.000">
+        			<failure message="Failed" type="">Message from second&#xA;parallel_test.go:23: SecondTest error</failure>
+        		</testcase>
+        		<testcase classname="parallel" name="ThirdTest" time="0.010">
+        			<failure message="Failed" type="">Message from third&#xA;parallel_test.go:32: ThirdTest error</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="3" time="3.010" name="pkg/parallel">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="parallel" name="FirstTest" time="2.000">
+        			<failure message="Failed" type="">Message from first&#xA;Supplemental from first&#xA;parallel_test.go:14: FirstTest error</failure>
+        		</testcase>
+        		<testcase classname="parallel" name="SecondTest" time="1.000">
+        			<failure message="Failed" type="">Message from second&#xA;parallel_test.go:23: SecondTest error</failure>
+        		</testcase>
+        		<testcase classname="parallel" name="ThirdTest" time="0.010">
+        			<failure message="Failed" type="">Message from third&#xA;parallel_test.go:32: ThirdTest error</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 21-cached.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.000" name="package/one">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="one" name="TestOne" time="0.000"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.000" name="package/one">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="one" name="TestOne" time="0.000"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 22-bench.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="3.212" name="package/basic">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="basic" name="BenchmarkParse" time="0.000000604"></testcase>
+        		<testcase classname="basic" name="BenchmarkReadingList" time="0.000001425"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="3.212" name="package/basic">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="basic" name="BenchmarkParse" time="0.000000604"></testcase>
+        		<testcase classname="basic" name="BenchmarkReadingList" time="0.000001425"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 23-benchmem.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="9.415" name="package/one">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="one" name="BenchmarkIpsHistoryInsert" time="0.000052568"></testcase>
+        		<testcase classname="one" name="BenchmarkIpsHistoryLookup" time="0.000015208"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="9.415" name="package/one">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="one" name="BenchmarkIpsHistoryInsert" time="0.000052568"></testcase>
+        		<testcase classname="one" name="BenchmarkIpsHistoryLookup" time="0.000015208"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 24-benchtests.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="6" failures="0" time="1.382" name="package3/baz">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="baz" name="TestNew" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestNew/no" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestNew/normal" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestWriteThis" time="0.000"></testcase>
+        		<testcase classname="baz" name="BenchmarkDeepMerge" time="0.000002611"></testcase>
+        		<testcase classname="baz" name="BenchmarkNext" time="0.000000100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="6" failures="0" time="1.382" name="package3/baz">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="baz" name="TestNew" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestNew/no" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestNew/normal" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestWriteThis" time="0.000"></testcase>
+        		<testcase classname="baz" name="BenchmarkDeepMerge" time="0.000002611"></testcase>
+        		<testcase classname="baz" name="BenchmarkNext" time="0.000000100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 25-benchcount.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="14.211" name="pkg/count">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="count" name="BenchmarkNew" time="0.000000352"></testcase>
+        		<testcase classname="count" name="BenchmarkFew" time="0.000000102"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="14.211" name="pkg/count">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="count" name="BenchmarkNew" time="0.000000352"></testcase>
+        		<testcase classname="count" name="BenchmarkFew" time="0.000000102"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 26-testbenchmultiple.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="7.267" name="mycode/common">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="common" name="BenchmarkParse" time="0.000001591"></testcase>
+        		<testcase classname="common" name="BenchmarkNewTask" time="0.000000391"></testcase>
+        	</testsuite>
+        	<testsuite tests="4" failures="0" time="47.084" name="mycode/benchmarks/channels">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/10" time="0.000004673"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/100" time="0.000024965"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/1000" time="0.000195672"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/10000" time="0.002410200"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="7.267" name="mycode/common">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="common" name="BenchmarkParse" time="0.000001591"></testcase>
+        		<testcase classname="common" name="BenchmarkNewTask" time="0.000000391"></testcase>
+        	</testsuite>
+        	<testsuite tests="4" failures="0" time="47.084" name="mycode/benchmarks/channels">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/10" time="0.000004673"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/100" time="0.000024965"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/1000" time="0.000195672"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/10000" time="0.002410200"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 27-benchdecimal.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="0" time="4.344" name="really/small">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="small" name="BenchmarkItsy" time="0.000000045"></testcase>
+        		<testcase classname="small" name="BenchmarkTeeny" time="0.000000002"></testcase>
+        		<testcase classname="small" name="BenchmarkWeeny" time="0.000000000"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="0" time="4.344" name="really/small">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="small" name="BenchmarkItsy" time="0.000000045"></testcase>
+        		<testcase classname="small" name="BenchmarkTeeny" time="0.000000002"></testcase>
+        		<testcase classname="small" name="BenchmarkWeeny" time="0.000000000"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 28-bench-1cpu.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="9.467" name="single/cpu">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="cpu" name="BenchmarkRing" time="0.000000074"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="9.467" name="single/cpu">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="cpu" name="BenchmarkRing" time="0.000000074"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 29-bench-16cpu.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="1.522" name="sixteen/cpu">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="cpu" name="BenchmarkRingaround" time="0.000013571"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="1.522" name="sixteen/cpu">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="cpu" name="BenchmarkRingaround" time="0.000013571"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 30-stdout.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="17" failures="9" time="4.567" name="package/name1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name1" name="TestFailWithStdoutAndTestOutput" time="0.100">
+        			<failure message="Failed" type="">multi&#xA;line&#xA;stdout&#xA;single-line stdout&#xA;example_test.go:13: single-line error&#xA;example_test.go:14: multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithStdoutAndNoTestOutput" time="0.150">
+        			<failure message="Failed" type="">multi&#xA;line&#xA;stdout&#xA;single-line stdout</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithTestOutput" time="0.200">
+        			<failure message="Failed" type="">example_test.go:26: single-line error&#xA;example_test.go:27: multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithNoTestOutput" time="0.250">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestPassWithStdoutAndTestOutput" time="0.300"></testcase>
+        		<testcase classname="name1" name="TestPassWithStdoutAndNoTestOutput" time="0.350"></testcase>
+        		<testcase classname="name1" name="TestPassWithTestOutput" time="0.400"></testcase>
+        		<testcase classname="name1" name="TestPassWithNoTestOutput" time="0.500"></testcase>
+        		<testcase classname="name1" name="TestSubtests" time="2.270">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithStdoutAndTestOutput" time="0.100">
+        			<failure message="Failed" type="">1 multi&#xA;line&#xA;stdout&#xA;1 single-line stdout&#xA;example_test.go:65: 1 single-line error&#xA;example_test.go:66: 1 multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithStdoutAndNoTestOutput" time="0.150">
+        			<failure message="Failed" type="">2 multi&#xA;line&#xA;stdout&#xA;2 single-line stdout</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithTestOutput" time="0.200">
+        			<failure message="Failed" type="">example_test.go:78: 3 single-line error&#xA;example_test.go:79: 3 multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithNoTestOutput" time="0.250">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithStdoutAndTestOutput" time="0.300"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithStdoutAndNoTestOutput" time="0.350"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithTestOutput" time="0.400"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithNoTestOutput" time="0.500"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="17" failures="9" time="4.567" name="package/name1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="name1" name="TestFailWithStdoutAndTestOutput" time="0.100">
+        			<failure message="Failed" type="">multi&#xA;line&#xA;stdout&#xA;single-line stdout&#xA;example_test.go:13: single-line error&#xA;example_test.go:14: multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithStdoutAndNoTestOutput" time="0.150">
+        			<failure message="Failed" type="">multi&#xA;line&#xA;stdout&#xA;single-line stdout</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithTestOutput" time="0.200">
+        			<failure message="Failed" type="">example_test.go:26: single-line error&#xA;example_test.go:27: multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithNoTestOutput" time="0.250">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestPassWithStdoutAndTestOutput" time="0.300"></testcase>
+        		<testcase classname="name1" name="TestPassWithStdoutAndNoTestOutput" time="0.350"></testcase>
+        		<testcase classname="name1" name="TestPassWithTestOutput" time="0.400"></testcase>
+        		<testcase classname="name1" name="TestPassWithNoTestOutput" time="0.500"></testcase>
+        		<testcase classname="name1" name="TestSubtests" time="2.270">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithStdoutAndTestOutput" time="0.100">
+        			<failure message="Failed" type="">1 multi&#xA;line&#xA;stdout&#xA;1 single-line stdout&#xA;example_test.go:65: 1 single-line error&#xA;example_test.go:66: 1 multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithStdoutAndNoTestOutput" time="0.150">
+        			<failure message="Failed" type="">2 multi&#xA;line&#xA;stdout&#xA;2 single-line stdout</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithTestOutput" time="0.200">
+        			<failure message="Failed" type="">example_test.go:78: 3 single-line error&#xA;example_test.go:79: 3 multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithNoTestOutput" time="0.250">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithStdoutAndTestOutput" time="0.300"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithStdoutAndNoTestOutput" time="0.350"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithTestOutput" time="0.400"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithNoTestOutput" time="0.500"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 31-syntax-error-test-binary.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="passing1" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="passing2" name="TestB" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failing1" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing1/failing_test.go:15: undefined: x</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failing2" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing2/another_failing_test.go:20: undefined: y</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/setupfailing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="setupfailing1" name="[setup failed]" time="0.000">
+        			<failure message="Failed" type="">setupfailing1/failing_test.go:4: cannot find package &#34;other/package&#34; in any of:&#xA;&#x9;/path/vendor (vendor tree)&#xA;&#x9;/path/go/root (from $GOROOT)&#xA;&#x9;/path/go/path (from $GOPATH)</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="passing1" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="passing2" name="TestB" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failing1" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing1/failing_test.go:15: undefined: x</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing2">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failing2" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing2/another_failing_test.go:20: undefined: y</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/setupfailing1">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="setupfailing1" name="[setup failed]" time="0.000">
+        			<failure message="Failed" type="">setupfailing1/failing_test.go:4: cannot find package &#34;other/package&#34; in any of:&#xA;&#x9;/path/vendor (vendor tree)&#xA;&#x9;/path/go/root (from $GOROOT)&#xA;&#x9;/path/go/path (from $GOPATH)</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 32-failed-summary.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="1" time="0.005" name="github.com/jstemmer/test/failedsummary">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failedsummary" name="TestOne" time="0.000"></testcase>
+        		<testcase classname="failedsummary" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: panic</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="1" time="0.005" name="github.com/jstemmer/test/failedsummary">
+        		<properties>
+        			<property name="go.version" value="go1.14.4"></property>
+        		</properties>
+        		<testcase classname="failedsummary" name="TestOne" time="0.000"></testcase>
+        		<testcase classname="failedsummary" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: panic</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+--- FAIL: TestJUnitFormatter (0.00s)
+=== RUN   TestVersionFlag
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 01-pass.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 02-fail.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="1" time="0.151" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020">
+        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        		</testcase>
+        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="1" time="0.151" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020">
+        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        		</testcase>
+        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 03-skip.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.150" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020">
+        			<skipped message="file_test.go:11: Skip message"></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.150" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020">
+        			<skipped message="file_test.go:11: Skip message"></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 04-go_1_4.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 05-no_xml_header.txt Report xml ==
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 06-mixed.txt Report xml ==
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name1" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name1" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="2" failures="1" time="0.151" name="package/name2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name2" name="TestOne" time="0.020">
+        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        		</testcase>
+        		<testcase classname="name2" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name1" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="name1" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="2" failures="1" time="0.151" name="package/name2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name2" name="TestOne" time="0.020">
+        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        		</testcase>
+        		<testcase classname="name2" name="TestTwo" time="0.130"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 07-compiled_test.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="test/package">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="package" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="package" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="test/package">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="package" name="TestOne" time="0.060"></testcase>
+        		<testcase classname="package" name="TestTwo" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 08-parallel.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.440" name="github.com/dmitris/test-go-junit-report">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="test-go-junit-report" name="TestDoFoo" time="0.270"></testcase>
+        		<testcase classname="test-go-junit-report" name="TestDoFoo2" time="0.160"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.440" name="github.com/dmitris/test-go-junit-report">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="test-go-junit-report" name="TestDoFoo" time="0.270"></testcase>
+        		<testcase classname="test-go-junit-report" name="TestDoFoo2" time="0.160"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 09-coverage.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="13.37"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="13.37"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 10-multipkg-coverage.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.400" name="package1/foo">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="10.0"></property>
+        		</properties>
+        		<testcase classname="foo" name="TestA" time="0.100"></testcase>
+        		<testcase classname="foo" name="TestB" time="0.300"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="4.200" name="package2/bar">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="99.8"></property>
+        		</properties>
+        		<testcase classname="bar" name="TestC" time="4.200"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.400" name="package1/foo">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="10.0"></property>
+        		</properties>
+        		<testcase classname="foo" name="TestA" time="0.100"></testcase>
+        		<testcase classname="foo" name="TestB" time="0.300"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="4.200" name="package2/bar">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="99.8"></property>
+        		</properties>
+        		<testcase classname="bar" name="TestC" time="4.200"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 11-go_1_5.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.050" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.030"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.050" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.020"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.030"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 12-go_1_7.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="18" failures="3" time="0.050" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.010"></testcase>
+        		<testcase classname="name" name="TestOne/Child" time="0.020"></testcase>
+        		<testcase classname="name" name="TestOne/Child#01" time="0.030"></testcase>
+        		<testcase classname="name" name="TestOne/Child=02" time="0.040"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.010"></testcase>
+        		<testcase classname="name" name="TestTwo/Child" time="0.020"></testcase>
+        		<testcase classname="name" name="TestTwo/Child#01" time="0.030"></testcase>
+        		<testcase classname="name" name="TestTwo/Child=02" time="0.040"></testcase>
+        		<testcase classname="name" name="TestThree" time="0.010"></testcase>
+        		<testcase classname="name" name="TestThree/a#1" time="0.020"></testcase>
+        		<testcase classname="name" name="TestThree/a#1/b#1" time="0.030"></testcase>
+        		<testcase classname="name" name="TestThree/a#1/b#1/c#1" time="0.040"></testcase>
+        		<testcase classname="name" name="TestFour" time="0.020">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#00" time="0.000">
+        			<failure message="Failed" type="">example.go:12: Expected abc  OBTAINED:&#xA;&#x9;xyz&#xA;example.go:123: Expected and obtained are different.</failure>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#01" time="0.000">
+        			<skipped message="example.go:1234: Not supported yet."></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#02" time="0.000"></testcase>
+        		<testcase classname="name" name="TestFive" time="0.000">
+        			<skipped message="example.go:1392: Not supported yet."></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestSix" time="0.000">
+        			<failure message="Failed" type="">example.go:371: This should not fail!</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="18" failures="3" time="0.050" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestOne" time="0.010"></testcase>
+        		<testcase classname="name" name="TestOne/Child" time="0.020"></testcase>
+        		<testcase classname="name" name="TestOne/Child#01" time="0.030"></testcase>
+        		<testcase classname="name" name="TestOne/Child=02" time="0.040"></testcase>
+        		<testcase classname="name" name="TestTwo" time="0.010"></testcase>
+        		<testcase classname="name" name="TestTwo/Child" time="0.020"></testcase>
+        		<testcase classname="name" name="TestTwo/Child#01" time="0.030"></testcase>
+        		<testcase classname="name" name="TestTwo/Child=02" time="0.040"></testcase>
+        		<testcase classname="name" name="TestThree" time="0.010"></testcase>
+        		<testcase classname="name" name="TestThree/a#1" time="0.020"></testcase>
+        		<testcase classname="name" name="TestThree/a#1/b#1" time="0.030"></testcase>
+        		<testcase classname="name" name="TestThree/a#1/b#1/c#1" time="0.040"></testcase>
+        		<testcase classname="name" name="TestFour" time="0.020">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#00" time="0.000">
+        			<failure message="Failed" type="">example.go:12: Expected abc  OBTAINED:&#xA;&#x9;xyz&#xA;example.go:123: Expected and obtained are different.</failure>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#01" time="0.000">
+        			<skipped message="example.go:1234: Not supported yet."></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestFour/#02" time="0.000"></testcase>
+        		<testcase classname="name" name="TestFive" time="0.000">
+        			<skipped message="example.go:1392: Not supported yet."></skipped>
+        		</testcase>
+        		<testcase classname="name" name="TestSix" time="0.000">
+        			<failure message="Failed" type="">example.go:371: This should not fail!</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 13-syntax-error.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="passing1" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="passing2" name="TestB" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failing1" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing1/failing_test.go:15: undefined: x</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failing2" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing2/another_failing_test.go:20: undefined: y</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/setupfailing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="setupfailing1" name="[setup failed]" time="0.000">
+        			<failure message="Failed" type="">setupfailing1/failing_test.go:4: cannot find package &#34;other/package&#34; in any of:&#xA;&#x9;/path/vendor (vendor tree)&#xA;&#x9;/path/go/root (from $GOROOT)&#xA;&#x9;/path/go/path (from $GOPATH)</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="passing1" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="passing2" name="TestB" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failing1" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing1/failing_test.go:15: undefined: x</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failing2" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing2/another_failing_test.go:20: undefined: y</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/setupfailing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="setupfailing1" name="[setup failed]" time="0.000">
+        			<failure message="Failed" type="">setupfailing1/failing_test.go:4: cannot find package &#34;other/package&#34; in any of:&#xA;&#x9;/path/vendor (vendor tree)&#xA;&#x9;/path/go/root (from $GOROOT)&#xA;&#x9;/path/go/path (from $GOPATH)</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 14-panic.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="1" time="0.003" name="package/panic">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="panic" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: init&#xA;stacktrace</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.003" name="package/panic2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="panic2" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: init&#xA;stacktrace</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="1" time="0.003" name="package/panic">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="panic" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: init&#xA;stacktrace</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.003" name="package/panic2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="panic2" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: init&#xA;stacktrace</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 15-empty.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="0" failures="0" time="0.001" name="package/empty">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="0" failures="0" time="0.001" name="package/empty">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 16-repeated-names.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="0" time="0.001" name="package/repeated-names">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="0" time="0.001" name="package/repeated-names">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        		<testcase classname="repeated-names" name="TestRepeat" time="0.000"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 17-race.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="1" time="0.015" name="race_test">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="race_test" name="TestRace" time="0.000">
+        			<failure message="Failed" type="">test output&#xA;2 0xc4200153d0&#xA;==================&#xA;WARNING: DATA RACE&#xA;Write at 0x00c4200153d0 by goroutine 7:&#xA;  race_test.TestRace.func1()&#xA;      race_test.go:13 +0x3b&#xA;&#xA;Previous write at 0x00c4200153d0 by goroutine 6:&#xA;  race_test.TestRace()&#xA;      race_test.go:15 +0x136&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;&#xA;Goroutine 7 (running) created at:&#xA;  race_test.TestRace()&#xA;      race_test.go:14 +0x125&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;&#xA;Goroutine 6 (running) created at:&#xA;  testing.(*T).Run()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:697 +0x543&#xA;  testing.runTests.func1()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:882 +0xaa&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;  testing.runTests()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:888 +0x4e0&#xA;  testing.(*M).Run()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:822 +0x1c3&#xA;  main.main()&#xA;      _test/_testmain.go:52 +0x20f&#xA;==================&#xA;testing.go:610: race detected during execution of test</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="1" time="0.015" name="race_test">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="race_test" name="TestRace" time="0.000">
+        			<failure message="Failed" type="">test output&#xA;2 0xc4200153d0&#xA;==================&#xA;WARNING: DATA RACE&#xA;Write at 0x00c4200153d0 by goroutine 7:&#xA;  race_test.TestRace.func1()&#xA;      race_test.go:13 +0x3b&#xA;&#xA;Previous write at 0x00c4200153d0 by goroutine 6:&#xA;  race_test.TestRace()&#xA;      race_test.go:15 +0x136&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;&#xA;Goroutine 7 (running) created at:&#xA;  race_test.TestRace()&#xA;      race_test.go:14 +0x125&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;&#xA;Goroutine 6 (running) created at:&#xA;  testing.(*T).Run()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:697 +0x543&#xA;  testing.runTests.func1()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:882 +0xaa&#xA;  testing.tRunner()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:657 +0x107&#xA;  testing.runTests()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:888 +0x4e0&#xA;  testing.(*M).Run()&#xA;      /usr/local/Cellar/go/1.8.3/libexec/src/testing/testing.go:822 +0x1c3&#xA;  main.main()&#xA;      _test/_testmain.go:52 +0x20f&#xA;==================&#xA;testing.go:610: race detected during execution of test</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 18-coverpkg.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.400" name="package1/foo">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="10.0"></property>
+        		</properties>
+        		<testcase classname="foo" name="TestA" time="0.100"></testcase>
+        		<testcase classname="foo" name="TestB" time="0.300"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="4.200" name="package2/bar">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="99.8"></property>
+        		</properties>
+        		<testcase classname="bar" name="TestC" time="4.200"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.400" name="package1/foo">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="10.0"></property>
+        		</properties>
+        		<testcase classname="foo" name="TestA" time="0.100"></testcase>
+        		<testcase classname="foo" name="TestB" time="0.300"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="4.200" name="package2/bar">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        			<property name="coverage.statements.pct" value="99.8"></property>
+        		</properties>
+        		<testcase classname="bar" name="TestC" time="4.200"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 19-pass.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="0.160" name="package/name">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 20-parallel.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="3" time="3.010" name="pkg/parallel">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="parallel" name="FirstTest" time="2.000">
+        			<failure message="Failed" type="">Message from first&#xA;Supplemental from first&#xA;parallel_test.go:14: FirstTest error</failure>
+        		</testcase>
+        		<testcase classname="parallel" name="SecondTest" time="1.000">
+        			<failure message="Failed" type="">Message from second&#xA;parallel_test.go:23: SecondTest error</failure>
+        		</testcase>
+        		<testcase classname="parallel" name="ThirdTest" time="0.010">
+        			<failure message="Failed" type="">Message from third&#xA;parallel_test.go:32: ThirdTest error</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="3" time="3.010" name="pkg/parallel">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="parallel" name="FirstTest" time="2.000">
+        			<failure message="Failed" type="">Message from first&#xA;Supplemental from first&#xA;parallel_test.go:14: FirstTest error</failure>
+        		</testcase>
+        		<testcase classname="parallel" name="SecondTest" time="1.000">
+        			<failure message="Failed" type="">Message from second&#xA;parallel_test.go:23: SecondTest error</failure>
+        		</testcase>
+        		<testcase classname="parallel" name="ThirdTest" time="0.010">
+        			<failure message="Failed" type="">Message from third&#xA;parallel_test.go:32: ThirdTest error</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 21-cached.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.000" name="package/one">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="one" name="TestOne" time="0.000"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.000" name="package/one">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="one" name="TestOne" time="0.000"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 22-bench.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="3.212" name="package/basic">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="basic" name="BenchmarkParse" time="0.000000604"></testcase>
+        		<testcase classname="basic" name="BenchmarkReadingList" time="0.000001425"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="3.212" name="package/basic">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="basic" name="BenchmarkParse" time="0.000000604"></testcase>
+        		<testcase classname="basic" name="BenchmarkReadingList" time="0.000001425"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 23-benchmem.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="9.415" name="package/one">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="one" name="BenchmarkIpsHistoryInsert" time="0.000052568"></testcase>
+        		<testcase classname="one" name="BenchmarkIpsHistoryLookup" time="0.000015208"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="9.415" name="package/one">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="one" name="BenchmarkIpsHistoryInsert" time="0.000052568"></testcase>
+        		<testcase classname="one" name="BenchmarkIpsHistoryLookup" time="0.000015208"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 24-benchtests.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="6" failures="0" time="1.382" name="package3/baz">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="baz" name="TestNew" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestNew/no" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestNew/normal" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestWriteThis" time="0.000"></testcase>
+        		<testcase classname="baz" name="BenchmarkDeepMerge" time="0.000002611"></testcase>
+        		<testcase classname="baz" name="BenchmarkNext" time="0.000000100"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="6" failures="0" time="1.382" name="package3/baz">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="baz" name="TestNew" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestNew/no" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestNew/normal" time="0.000"></testcase>
+        		<testcase classname="baz" name="TestWriteThis" time="0.000"></testcase>
+        		<testcase classname="baz" name="BenchmarkDeepMerge" time="0.000002611"></testcase>
+        		<testcase classname="baz" name="BenchmarkNext" time="0.000000100"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 25-benchcount.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="14.211" name="pkg/count">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="count" name="BenchmarkNew" time="0.000000352"></testcase>
+        		<testcase classname="count" name="BenchmarkFew" time="0.000000102"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="14.211" name="pkg/count">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="count" name="BenchmarkNew" time="0.000000352"></testcase>
+        		<testcase classname="count" name="BenchmarkFew" time="0.000000102"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 26-testbenchmultiple.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="7.267" name="mycode/common">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="common" name="BenchmarkParse" time="0.000001591"></testcase>
+        		<testcase classname="common" name="BenchmarkNewTask" time="0.000000391"></testcase>
+        	</testsuite>
+        	<testsuite tests="4" failures="0" time="47.084" name="mycode/benchmarks/channels">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/10" time="0.000004673"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/100" time="0.000024965"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/1000" time="0.000195672"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/10000" time="0.002410200"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="0" time="7.267" name="mycode/common">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="common" name="BenchmarkParse" time="0.000001591"></testcase>
+        		<testcase classname="common" name="BenchmarkNewTask" time="0.000000391"></testcase>
+        	</testsuite>
+        	<testsuite tests="4" failures="0" time="47.084" name="mycode/benchmarks/channels">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/10" time="0.000004673"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/100" time="0.000024965"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/1000" time="0.000195672"></testcase>
+        		<testcase classname="channels" name="BenchmarkFanout/Channel/10000" time="0.002410200"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 27-benchdecimal.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="0" time="4.344" name="really/small">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="small" name="BenchmarkItsy" time="0.000000045"></testcase>
+        		<testcase classname="small" name="BenchmarkTeeny" time="0.000000002"></testcase>
+        		<testcase classname="small" name="BenchmarkWeeny" time="0.000000000"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="3" failures="0" time="4.344" name="really/small">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="small" name="BenchmarkItsy" time="0.000000045"></testcase>
+        		<testcase classname="small" name="BenchmarkTeeny" time="0.000000002"></testcase>
+        		<testcase classname="small" name="BenchmarkWeeny" time="0.000000000"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 28-bench-1cpu.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="9.467" name="single/cpu">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="cpu" name="BenchmarkRing" time="0.000000074"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="9.467" name="single/cpu">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="cpu" name="BenchmarkRing" time="0.000000074"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 29-bench-16cpu.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="1.522" name="sixteen/cpu">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="cpu" name="BenchmarkRingaround" time="0.000013571"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="1.522" name="sixteen/cpu">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="cpu" name="BenchmarkRingaround" time="0.000013571"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 30-stdout.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="17" failures="9" time="4.567" name="package/name1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name1" name="TestFailWithStdoutAndTestOutput" time="0.100">
+        			<failure message="Failed" type="">multi&#xA;line&#xA;stdout&#xA;single-line stdout&#xA;example_test.go:13: single-line error&#xA;example_test.go:14: multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithStdoutAndNoTestOutput" time="0.150">
+        			<failure message="Failed" type="">multi&#xA;line&#xA;stdout&#xA;single-line stdout</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithTestOutput" time="0.200">
+        			<failure message="Failed" type="">example_test.go:26: single-line error&#xA;example_test.go:27: multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithNoTestOutput" time="0.250">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestPassWithStdoutAndTestOutput" time="0.300"></testcase>
+        		<testcase classname="name1" name="TestPassWithStdoutAndNoTestOutput" time="0.350"></testcase>
+        		<testcase classname="name1" name="TestPassWithTestOutput" time="0.400"></testcase>
+        		<testcase classname="name1" name="TestPassWithNoTestOutput" time="0.500"></testcase>
+        		<testcase classname="name1" name="TestSubtests" time="2.270">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithStdoutAndTestOutput" time="0.100">
+        			<failure message="Failed" type="">1 multi&#xA;line&#xA;stdout&#xA;1 single-line stdout&#xA;example_test.go:65: 1 single-line error&#xA;example_test.go:66: 1 multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithStdoutAndNoTestOutput" time="0.150">
+        			<failure message="Failed" type="">2 multi&#xA;line&#xA;stdout&#xA;2 single-line stdout</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithTestOutput" time="0.200">
+        			<failure message="Failed" type="">example_test.go:78: 3 single-line error&#xA;example_test.go:79: 3 multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithNoTestOutput" time="0.250">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithStdoutAndTestOutput" time="0.300"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithStdoutAndNoTestOutput" time="0.350"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithTestOutput" time="0.400"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithNoTestOutput" time="0.500"></testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="17" failures="9" time="4.567" name="package/name1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="name1" name="TestFailWithStdoutAndTestOutput" time="0.100">
+        			<failure message="Failed" type="">multi&#xA;line&#xA;stdout&#xA;single-line stdout&#xA;example_test.go:13: single-line error&#xA;example_test.go:14: multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithStdoutAndNoTestOutput" time="0.150">
+        			<failure message="Failed" type="">multi&#xA;line&#xA;stdout&#xA;single-line stdout</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithTestOutput" time="0.200">
+        			<failure message="Failed" type="">example_test.go:26: single-line error&#xA;example_test.go:27: multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestFailWithNoTestOutput" time="0.250">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestPassWithStdoutAndTestOutput" time="0.300"></testcase>
+        		<testcase classname="name1" name="TestPassWithStdoutAndNoTestOutput" time="0.350"></testcase>
+        		<testcase classname="name1" name="TestPassWithTestOutput" time="0.400"></testcase>
+        		<testcase classname="name1" name="TestPassWithNoTestOutput" time="0.500"></testcase>
+        		<testcase classname="name1" name="TestSubtests" time="2.270">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithStdoutAndTestOutput" time="0.100">
+        			<failure message="Failed" type="">1 multi&#xA;line&#xA;stdout&#xA;1 single-line stdout&#xA;example_test.go:65: 1 single-line error&#xA;example_test.go:66: 1 multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithStdoutAndNoTestOutput" time="0.150">
+        			<failure message="Failed" type="">2 multi&#xA;line&#xA;stdout&#xA;2 single-line stdout</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithTestOutput" time="0.200">
+        			<failure message="Failed" type="">example_test.go:78: 3 single-line error&#xA;example_test.go:79: 3 multi&#xA;    line&#xA;    error</failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestFailWithNoTestOutput" time="0.250">
+        			<failure message="Failed" type=""></failure>
+        		</testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithStdoutAndTestOutput" time="0.300"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithStdoutAndNoTestOutput" time="0.350"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithTestOutput" time="0.400"></testcase>
+        		<testcase classname="name1" name="TestSubtests/TestPassWithNoTestOutput" time="0.500"></testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 31-syntax-error-test-binary.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="passing1" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="passing2" name="TestB" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failing1" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing1/failing_test.go:15: undefined: x</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failing2" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing2/another_failing_test.go:20: undefined: y</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/setupfailing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="setupfailing1" name="[setup failed]" time="0.000">
+        			<failure message="Failed" type="">setupfailing1/failing_test.go:4: cannot find package &#34;other/package&#34; in any of:&#xA;&#x9;/path/vendor (vendor tree)&#xA;&#x9;/path/go/root (from $GOROOT)&#xA;&#x9;/path/go/path (from $GOPATH)</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="passing1" name="TestA" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="0" time="0.100" name="package/name/passing2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="passing2" name="TestB" time="0.100"></testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failing1" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing1/failing_test.go:15: undefined: x</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/failing2">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failing2" name="[build failed]" time="0.000">
+        			<failure message="Failed" type="">failing2/another_failing_test.go:20: undefined: y</failure>
+        		</testcase>
+        	</testsuite>
+        	<testsuite tests="1" failures="1" time="0.000" name="package/name/setupfailing1">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="setupfailing1" name="[setup failed]" time="0.000">
+        			<failure message="Failed" type="">setupfailing1/failing_test.go:4: cannot find package &#34;other/package&#34; in any of:&#xA;&#x9;/path/vendor (vendor tree)&#xA;&#x9;/path/go/root (from $GOROOT)&#xA;&#x9;/path/go/path (from $GOPATH)</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+    TestVersionFlag: go-junit-report_test.go:1672: Fail: 32-failed-summary.txt Report xml ==
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="1" time="0.005" name="github.com/jstemmer/test/failedsummary">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failedsummary" name="TestOne" time="0.000"></testcase>
+        		<testcase classname="failedsummary" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: panic</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+        , want
+        <?xml version="1.0" encoding="UTF-8"?>
+        <testsuites>
+        	<testsuite tests="2" failures="1" time="0.005" name="github.com/jstemmer/test/failedsummary">
+        		<properties>
+        			<property name="go.version" value="custom-version"></property>
+        		</properties>
+        		<testcase classname="failedsummary" name="TestOne" time="0.000"></testcase>
+        		<testcase classname="failedsummary" name="Failure" time="0.000">
+        			<failure message="Failed" type="">panic: panic</failure>
+        		</testcase>
+        	</testsuite>
+        </testsuites>
+--- FAIL: TestVersionFlag (0.00s)
+FAIL
+exit status 1
+FAIL	github.com/jstemmer/go-junit-report	0.238s

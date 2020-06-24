@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.0030" tests="6" failures="6">
+  <testsuite name="Root Suite" timestamp="2020-06-17T12:03:13" tests="0" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="defineKindOfTriangle function" timestamp="2020-06-17T12:03:13" tests="6" file="C:\Git\triangle-type-definition\test\define-kind-of-triangle.spec.js" time="0.0030" failures="6">
+    <testcase name="defineKindOfTriangle function should return &quot;not exist&quot; if sideC the same or bigger than sum of others" time="0.0020" classname="should return &quot;not exist&quot; if sideC the same or bigger than sum of others">
+      <failure message="expected undefined to equal &apos;not exist&apos;" type="AssertionError"><![CDATA[AssertionError: expected undefined to equal 'not exist'
+    at Context.<anonymous> (test\define-kind-of-triangle.spec.js:7:23)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+    <testcase name="defineKindOfTriangle function should return &quot;not exist&quot; if sideA the same or bigger than sum of others" time="0.0000" classname="should return &quot;not exist&quot; if sideA the same or bigger than sum of others">
+      <failure message="expected undefined to equal &apos;not exist&apos;" type="AssertionError"><![CDATA[AssertionError: expected undefined to equal 'not exist'
+    at Context.<anonymous> (test\define-kind-of-triangle.spec.js:13:23)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+    <testcase name="defineKindOfTriangle function should return &quot;not exist&quot; if sideB the same or bigger than sum of others" time="0.0000" classname="should return &quot;not exist&quot; if sideB the same or bigger than sum of others">
+      <failure message="expected undefined to equal &apos;not exist&apos;" type="AssertionError"><![CDATA[AssertionError: expected undefined to equal 'not exist'
+    at Context.<anonymous> (test\define-kind-of-triangle.spec.js:19:23)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+    <testcase name="defineKindOfTriangle function should return &quot;acute-angled&quot; if a square of sideC less than a square&quot;s sum of sideA and sideB" time="0.0010" classname="should return &quot;acute-angled&quot; if a square of sideC less than a square&quot;s sum of sideA and sideB">
+      <failure message="expected undefined to equal &apos;acute-angled&apos;" type="AssertionError"><![CDATA[AssertionError: expected undefined to equal 'acute-angled'
+    at Context.<anonymous> (test\define-kind-of-triangle.spec.js:25:23)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+    <testcase name="defineKindOfTriangle function should return &quot;rectangular&quot; if a square of sideC the same as a square&quot;s sum of sideA and sideB" time="0.0000" classname="should return &quot;rectangular&quot; if a square of sideC the same as a square&quot;s sum of sideA and sideB">
+      <failure message="expected undefined to equal &apos;rectangular&apos;" type="AssertionError"><![CDATA[AssertionError: expected undefined to equal 'rectangular'
+    at Context.<anonymous> (test\define-kind-of-triangle.spec.js:31:23)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+    <testcase name="defineKindOfTriangle function should return &quot;obtuse&quot; if a square of sideC more than a square&quot;s sum of sideA and sideB" time="0.0000" classname="should return &quot;obtuse&quot; if a square of sideC more than a square&quot;s sum of sideA and sideB">
+      <failure message="expected undefined to equal &apos;obtuse&apos;" type="AssertionError"><![CDATA[AssertionError: expected undefined to equal 'obtuse'
+    at Context.<anonymous> (test\define-kind-of-triangle.spec.js:37:23)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

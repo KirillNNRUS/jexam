@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.jbotsim.io.format.xml.XMLParserTest" tests="22" skipped="0" failures="0" errors="0" timestamp="2020-06-16T15:10:53" hostname="runner-72989761-project-19412425-concurrent-0" time="0.739">
+  <properties/>
+  <testcase name="badSrcNodeTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.2"/>
+  <testcase name="badDstNodeTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.043"/>
+  <testcase name="invalidMessageEngineClassTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.037"/>
+  <testcase name="missingXMLVersionNumber" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.037"/>
+  <testcase name="noDefaultConstructorTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.032"/>
+  <testcase name="invalidNodeClassTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.023"/>
+  <testcase name="invalidSchedulerClassTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.028"/>
+  <testcase name="nodeRedeclaredTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.022"/>
+  <testcase name="invalidClockClassTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.022"/>
+  <testcase name="missingDstTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.016"/>
+  <testcase name="missingSrcTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.027"/>
+  <testcase name="missingClassesTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.017"/>
+  <testcase name="missingGraphTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.018"/>
+  <testcase name="emptyFileTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.017"/>
+  <testcase name="emptyGraphTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.013"/>
+  <testcase name="invalidLinkResolverClassTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.018"/>
+  <testcase name="namedNodeModelTest" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.022"/>
+  <testcase name="unknownModelClass" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.012"/>
+  <testcase name="twonodes" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.019"/>
+  <testcase name="incompleteModelClass1Test" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.016"/>
+  <testcase name="incompleteModelClass2Test" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.015"/>
+  <testcase name="incompleteModelClass3Test" classname="io.jbotsim.io.format.xml.XMLParserTest" time="0.02"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[Fatal Error] :22:1: Premature end of file.
+]]></system-err>
+</testsuite>

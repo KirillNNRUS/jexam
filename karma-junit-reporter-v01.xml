@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<testsuite name="PhantomJS 1.9.8 (Linux)" package="models" timestamp="2015-03-10T13:59:23" id="0" hostname="admin" tests="629" errors="0" failures="0" time="11.452">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
+  </properties>
+ <testcase name="(C.2) Checks if an empty object is returned when error 404 is encountered" time="0.01" classname="PhantomJS_1_9_8_(Linux).models.AnalyticsModule_test"/>
+ <testcase name="(C.3) Checks if an empty array is returned when error 405 is encountered" time="0.013" classname="PhantomJS_1_9_8_(Linux).models.AnalyticsModule_test"/>
+</testsuite>

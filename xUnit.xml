@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\DATA\Dropbox\WORK\Autotests\Prometeus_Project\Prometeus_main\Prometeus_Firefox\bin\Debug\Prometeus.dll" total="10" errors="1" failures="2" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2012-09-27" time="09:15:49">
+  <environment nunit-version="2.6.0.12035" clr-version="2.0.50727.5456" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\DATA\Dropbox\WORK\Autotests\Prometeus_Project\Prometeus_main\Prometeus_Firefox\bin\Debug" machine-name="QA-WORK" user="Admin" user-domain="QA-work" />
+  <culture-info current-culture="ru-RU" current-uiculture="ru-RU" />
+  <test-suite type="Assembly" name="C:\DATA\Dropbox\WORK\Autotests\Prometeus_Project\Prometeus_main\Prometeus_Firefox\bin\Debug\Prometeus.dll" executed="True" result="Failure" success="False" time="211.862" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="SeleniumTests" executed="True" result="Failure" success="False" time="211.844" asserts="0">
+        <results>
+          <test-suite type="TestFixture" name="Prometeus_main" executed="True" result="Failure" success="False" time="211.842" asserts="0">
+            <results>
+              <test-case name="SeleniumTests.Prometeus_main.A1_First_Authorization" executed="True" result="Error" success="False" time="32.063" asserts="12">
+                <failure>
+                  <message><![CDATA[OpenQA.Selenium.ElementNotVisibleException : Element is not currently visible and so may not be interacted with]]></message>
+                  <stack-trace><![CDATA[в OpenQA.Selenium.Remote.RemoteWebDriver.UnpackAndThrowOnError(Response errorResponse) в c:\Projects\WebDriver\trunk\dotnet\src\WebDriver\Remote\RemoteWebDriver.cs:строка 960
+в OpenQA.Selenium.Remote.RemoteWebDriver.Execute(String driverCommandToExecute, Dictionary`2 parameters) в c:\Projects\WebDriver\trunk\dotnet\src\WebDriver\Remote\RemoteWebDriver.cs:строка 812
+в SeleniumTests.Prometeus_main.A1_First_Authorization() в C:\DATA\Dropbox\WORK\Autotests\Prometeus_Project\Prometeus_main\Prometeus_Firefox\MAIN.cs:строка 264
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case name="SeleniumTests.Prometeus_main.A2_First_News" executed="True" result="Success" success="True" time="14.638" asserts="10" />
+              <test-case name="SeleniumTests.Prometeus_main.A3_Valid_Login" executed="True" result="Success" success="True" time="13.630" asserts="6" />
+              <test-case name="SeleniumTests.Prometeus_main.A4_Change_Password" executed="True" result="Success" success="True" time="20.311" asserts="12" />
+              <test-case name="SeleniumTests.Prometeus_main.A5_Change_Password_back" executed="True" result="Success" success="True" time="16.904" asserts="3" />
+              <test-case name="SeleniumTests.Prometeus_main.A6_Password_Requirments" executed="True" result="Success" success="True" time="16.177" asserts="9" />
+              <test-case name="SeleniumTests.Prometeus_main.B1_Search_test_by_full_name" executed="True" result="Success" success="True" time="26.632" asserts="13" />
+              <test-case name="SeleniumTests.Prometeus_main.B2_Search_test_by_part_of_name" executed="True" result="Success" success="True" time="23.744" asserts="13" />
+              <test-case name="SeleniumTests.Prometeus_main.B3_Search_test_by_mask" executed="True" result="Failure" success="False" time="21.292" asserts="7">
+                <failure>
+                  <message><![CDATA[Ошибка: Тест провален. Не удалось выполнить поиск теста по его названию]]></message>
+                  <stack-trace><![CDATA[в SeleniumTests.SearchTests.DoSearchTestAndCourse(IWebDriver& driver, String NameOfTest) в C:\DATA\Dropbox\WORK\Autotests\Prometeus_Project\Prometeus_main\Prometeus_Firefox\SearchTests.cs:строка 162
+в SeleniumTests.Prometeus_main.B3_Search_test_by_mask() в C:\DATA\Dropbox\WORK\Autotests\Prometeus_Project\Prometeus_main\Prometeus_Firefox\MAIN.cs:строка 747
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case name="SeleniumTests.Prometeus_main.C3_Check_button_zakaz_back_confirm" executed="True" result="Failure" success="False" time="26.183" asserts="8">
+                <failure>
+                  <message><![CDATA[Ошибка: Тест провален. Не удалось выполнить поиск теста по его названию]]></message>
+                  <stack-trace><![CDATA[в SeleniumTests.SearchTests.DoSearchTest(IWebDriver& driver, String NameOfTest) в C:\DATA\Dropbox\WORK\Autotests\Prometeus_Project\Prometeus_main\Prometeus_Firefox\SearchTests.cs:строка 91
+в SeleniumTests.Prometeus_main.C3_Check_button_zakaz_back_confirm() в C:\DATA\Dropbox\WORK\Autotests\Prometeus_Project\Prometeus_main\Prometeus_Firefox\MAIN.cs:строка 788
+]]></stack-trace>
+                </failure>
+              </test-case>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
