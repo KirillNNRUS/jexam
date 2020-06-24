@@ -6,17 +6,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonPropertyOrder({"message", "type"})
-@ToString
+@JsonPropertyOrder({"type"})
 public class Error {
-    @JsonProperty("message")
-    private String message;
     @JsonProperty("type")
     private String type;
 }

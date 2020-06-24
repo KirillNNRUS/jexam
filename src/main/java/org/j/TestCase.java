@@ -8,14 +8,12 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonPropertyOrder({"name", "classname", "time"})
-@ToString
+@JsonPropertyOrder({"name", "classname"})
 public class TestCase {
     @JsonProperty("name")
     private String name;
@@ -23,8 +21,6 @@ public class TestCase {
     @JsonProperty("classname")
     private String classname;
 
-    @JsonProperty("time")
-    private double time;
 
     @JacksonXmlProperty(localName = "failure")
     @JacksonXmlElementWrapper(useWrapping = false)
@@ -33,4 +29,8 @@ public class TestCase {
     @JacksonXmlProperty(localName = "error")
     @JacksonXmlElementWrapper(useWrapping = false)
     private Error error;
+
+    @JacksonXmlProperty(localName = "skipped")
+    @JacksonXmlElementWrapper(useWrapping = false)
+    private Skipped skipped;
 }
