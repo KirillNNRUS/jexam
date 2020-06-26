@@ -12,8 +12,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    static String XMLString = "";
-    static List<String> strings = new ArrayList<>();
+    static String stringFromXMLFile = "";
+    static List<String> onlyTestCaseList = new ArrayList<>();
+    static String stringForParse = "";
     static Pattern pattern = Pattern.compile("<testcase(.*?)/>|<testcase(.*?)</testcase>");
 
     public static void main(String[] args) {
@@ -24,21 +25,34 @@ public class Main {
 
     public static void readXMLString() {
         try {
-            XMLString = new String(Files.readAllBytes(Paths.get("report2.xml")));
+            stringFromXMLFile = new String(Files.readAllBytes(Paths.get("report2.xml")));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-  public static void getUpdateXML() {
-      XMLString = XMLString.replaceAll("\r\n", " ");
-      XMLString = XMLString.replaceAll("\t", " ");
-      XMLString = XMLString.replaceAll(" +", " ");
-      XMLString = XMLString.replaceAll(" +", " ");
-      Matcher matcher = pattern.matcher(XMLString);
-      while (matcher.find()) {
-          strings.add(matcher.group());
-      }
+    public static void getUpdateXML() {
+        stringFromXMLFile = stringFromXMLFile.replaceAll("\r\n", " ");
+        stringFromXMLFile = stringFromXMLFile.replaceAll("\t", " ");
+        stringFromXMLFile = stringFromXMLFile.replaceAll(" +", " ");
+        Matcher matcher = pattern.matcher(stringFromXMLFile);
+        while (matcher.find()) {
+            onlyTestCaseList.add(matcher.group());
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < onlyTestCaseList.size(); i++) {
+            if (i == 0) {
+                stringBuilder.append("<list>");
+            }
+            stringBuilder.append(onlyTestCaseList.get(i));
+            if (i == (onlyTestCaseList.size() -1)) {
+                stringBuilder.append("</list>");
+            }
+        }
+
+        stringForParse = stringBuilder.toString();
+        System.out.println(stringForParse);
     }
 
     public static void deserializeFromXML() {
@@ -46,13 +60,12 @@ public class Main {
             XmlMapper xmlMapper = new XmlMapper();
 
             // deserialize from the XML into a PhoneDetails object
-//            TestSuite deserializedData = xmlMapper.readValue(readContent, TestSuite.class);
-            List<TestSuite> myObjects = xmlMapper.readValue(XMLString, new TypeReference<List<TestSuite>>() {
+            List<TestSuite> myObjects = xmlMapper.readValue(stringForParse, new TypeReference<List<TestSuite>>() {
             });
+
             // Print object details
             System.out.println("Deserialized data: ");
             System.out.println(myObjects);
-
 
         } catch (IOException e) {
             e.printStackTrace();
