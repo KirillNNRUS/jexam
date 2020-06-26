@@ -40,8 +40,8 @@
         		<properties>
         			<property name="go.version" value="go1.14.4"></property>
         		</properties>
-        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
-        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        		<testcase classname="classname" name="TestZ" time="0.060"></testcase>
+        		<testcase classname="classname" name="TestA" time="0.100"></testcase>
         	</testsuite>
         </testsuites>
         , want
@@ -51,8 +51,10 @@
         		<properties>
         			<property name="go.version" value="go1.14.4"></property>
         		</properties>
-        		<testcase classname="name" name="TestZ" time="0.060"></testcase>
-        		<testcase classname="name" name="TestA" time="0.100"></testcase>
+        		<testcase classname="classname" name="TestZ" time="0.060">
+					<error message="Error" type="">Error ext message.</error>
+				</testcase>
+        		<testcase classname="classname" name="TestA" time="0.100"></testcase>
         	</testsuite>
         </testsuites>
     TestJUnitFormatter: go-junit-report_test.go:1672: Fail: 02-fail.txt Report xml ==
@@ -62,10 +64,10 @@
         		<properties>
         			<property name="go.version" value="go1.14.4"></property>
         		</properties>
-        		<testcase classname="name" name="TestOne" time="0.020">
+        		<testcase classname="classname" name="TestOne" time="0.020">
         			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
         		</testcase>
-        		<testcase classname="name" name="TestTwo" time="0.130"></testcase>
+        		<testcase classname="classname" name="TestTwo" time="0.130"></testcase>
         	</testsuite>
         </testsuites>
         , want

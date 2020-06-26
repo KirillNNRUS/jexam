@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonPropertyOrder({"type"})
+@JsonPropertyOrder({"failure message"})
 public class Failure {
-    @JsonProperty("type")
-    private String type;
+    @JsonProperty("failure message")
+    private String message;
 }

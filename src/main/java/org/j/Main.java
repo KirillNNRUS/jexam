@@ -19,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
         readXMLString();
-        getUpdateXML();
+        createUpdateXML();
         deserializeFromXML();
     }
 
@@ -31,10 +31,15 @@ public class Main {
         }
     }
 
-    public static void getUpdateXML() {
+    public static void createUpdateXML() {
         stringFromXMLFile = stringFromXMLFile.replaceAll("\r\n", " ");
+        stringFromXMLFile = stringFromXMLFile.replaceAll("&#xA;", " ");
+        stringFromXMLFile = stringFromXMLFile.replaceAll("&#x9;", " ");
+        stringFromXMLFile = stringFromXMLFile.replaceAll("\n", " ");
         stringFromXMLFile = stringFromXMLFile.replaceAll("\t", " ");
+        stringFromXMLFile = stringFromXMLFile.replaceAll("\n\t", " ");
         stringFromXMLFile = stringFromXMLFile.replaceAll(" +", " ");
+
         Matcher matcher = pattern.matcher(stringFromXMLFile);
         while (matcher.find()) {
             onlyTestCaseList.add(matcher.group());
@@ -46,13 +51,12 @@ public class Main {
                 stringBuilder.append("<list>");
             }
             stringBuilder.append(onlyTestCaseList.get(i));
-            if (i == (onlyTestCaseList.size() -1)) {
+            if (i == (onlyTestCaseList.size() - 1)) {
                 stringBuilder.append("</list>");
             }
         }
 
         stringForParse = stringBuilder.toString();
-        System.out.println(stringForParse);
     }
 
     public static void deserializeFromXML() {
