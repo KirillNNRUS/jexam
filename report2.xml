@@ -52,7 +52,7 @@
         			<property name="go.version" value="go1.14.4"></property>
         		</properties>
         		<testcase classname="classname3" name="TestZ" time="0.060">
-					<error message="Error" type="">Error ext message.</error>
+					<error message="Error" type="111">Error ext message.</error>
 				</testcase>
         		<testcase classname="classname4" name="TestA" time="0.100"></testcase>
         	</testsuite>

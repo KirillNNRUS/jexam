@@ -3,6 +3,7 @@ package org.j;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,7 +26,14 @@ public class Main {
 
     public static void readXMLString() {
         try {
-            stringFromXMLFile = new String(Files.readAllBytes(Paths.get("report2.xml")));
+            List<File> filesList = new ArrayList<>();
+            filesList.add(new File("report2.xml"));
+            filesList.add(new File("report.xml"));
+            StringBuilder stringBuilder = new StringBuilder();
+            for (File file : filesList) {
+                stringBuilder.append(new String(Files.readAllBytes(Paths.get(file.getPath()))));
+            }
+            stringFromXMLFile = stringBuilder.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
