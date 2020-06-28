@@ -65,7 +65,7 @@
         			<property name="go.version" value="go1.14.4"></property>
         		</properties>
         		<testcase classname="classname5" name="TestOne" time="0.020">
-        			<failure message="Failed" type="">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
+        			<failure message="Failed" type="type5Fail">file_test.go:11: Error message&#xA;file_test.go:11: Longer&#xA;&#x9;error&#xA;&#x9;message.</failure>
         		</testcase>
         		<testcase classname="classname6" name="TestTwo" time="0.130"></testcase>
         	</testsuite>
