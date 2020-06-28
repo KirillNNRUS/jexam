@@ -17,5 +17,5 @@ public class TestSuite {
 
     @JacksonXmlProperty(localName = "testcase")
     @JacksonXmlElementWrapper(useWrapping = false)
-    List<TestCase> testCaseList;
+    List<TestCaseHandler> testCaseHandlerList;
 }

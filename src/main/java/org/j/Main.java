@@ -64,7 +64,7 @@ public class Main {
             XmlMapper xmlMapper = new XmlMapper();
 
             // deserialize from the XML into a PhoneDetails object
-            List<TestCase> myObjects = xmlMapper.readValue(stringForParse, new TypeReference<List<TestCase>>() {
+            List<TestCaseHandler> myObjects = xmlMapper.readValue(stringForParse, new TypeReference<List<TestCaseHandler>>() {
             });
 
             // Print object details
