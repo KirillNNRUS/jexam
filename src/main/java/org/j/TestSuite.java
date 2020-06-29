@@ -12,6 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestSuite {
+    private int testsCount;
 
-    List<TestCaseHandler> testCaseHandlerList;
+    private int failuresCount;
+
+    private int errorsCount;
+
+    private int skippedCount;
+
+    private List<TestCase> testCases;
 }

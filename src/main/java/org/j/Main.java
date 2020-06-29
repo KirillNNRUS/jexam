@@ -20,12 +20,19 @@ public class Main {
     static Pattern pattern = Pattern.compile("<testcase(.*?)/>|<testcase(.*?)</testcase>");
     static List<TestCaseHandler> testCaseHandlerList = new ArrayList<>();
     static List<TestCase> testCaseList = new ArrayList<>();
+    static TestSuite testSuite = new TestSuite();
 
     public static void main(String[] args) {
         readXMLString();
         createUpdateXML();
         deserializeFromXML();
         createTestSuiteList();
+
+        testSuite.setTestCases(testCaseList);
+        testSuite.setTestsCount(testCaseList.size());
+        testSuite.setFailuresCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.FAILED).count());
+        testSuite.setErrorsCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.ERROR).count());
+        testSuite.setSkippedCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.SKIPPED).count());
         System.out.println("");
     }
 
@@ -99,7 +106,6 @@ public class Main {
                     testCase.setDetails("No details");
                 }
             }
-
 
 
             testCaseList.add(testCase);
