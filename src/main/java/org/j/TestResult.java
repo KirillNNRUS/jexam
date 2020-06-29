@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TestSuite {
+public class TestResult {
     private int testsCount;
 
     private int failuresCount;

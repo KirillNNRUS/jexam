@@ -20,7 +20,7 @@ public class Main {
     static Pattern pattern = Pattern.compile("<testcase(.*?)/>|<testcase(.*?)</testcase>");
     static List<TestCaseHandler> testCaseHandlerList = new ArrayList<>();
     static List<TestCase> testCaseList = new ArrayList<>();
-    static TestSuite testSuite = new TestSuite();
+    static TestResult testResult = new TestResult();
 
     public static void main(String[] args) {
         readXMLString();
@@ -28,11 +28,11 @@ public class Main {
         deserializeFromXML();
         createTestSuiteList();
 
-        testSuite.setTestCases(testCaseList);
-        testSuite.setTestsCount(testCaseList.size());
-        testSuite.setFailuresCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.FAILED).count());
-        testSuite.setErrorsCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.ERROR).count());
-        testSuite.setSkippedCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.SKIPPED).count());
+        testResult.setTestCases(testCaseList);
+        testResult.setTestsCount(testCaseList.size());
+        testResult.setFailuresCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.FAILED).count());
+        testResult.setErrorsCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.ERROR).count());
+        testResult.setSkippedCount((int) testCaseList.stream().filter(testCase -> testCase.getStatus() == TestCaseStatus.SKIPPED).count());
         System.out.println("");
     }
 
@@ -120,7 +120,10 @@ public class Main {
 
     public static void readXMLString() {
         try {
-            List<File> filesList = filesListBuilder(new File("report2.xml"), new File("report.xml"));
+            List<File> filesList = filesListBuilder(
+                    new File("xUnit.xml"),
+                    new File("report2.xml")
+            );
 
             StringBuilder stringBuilder = new StringBuilder();
             for (File file : filesList) {
@@ -134,6 +137,7 @@ public class Main {
 
     public static void createUpdateXML() {
         stringFromXMLFile = stringFromXMLFile.replaceAll("\r\n", " ");
+        stringFromXMLFile = stringFromXMLFile.replaceAll("test-case", "testcase");
         stringFromXMLFile = stringFromXMLFile.replaceAll("&#xA;", " ");
         stringFromXMLFile = stringFromXMLFile.replaceAll("&#x9;", " ");
         stringFromXMLFile = stringFromXMLFile.replaceAll("\n", " ");
