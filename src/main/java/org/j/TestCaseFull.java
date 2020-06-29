@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TestCaseHandler {
+public class TestCaseFull {
     @JacksonXmlProperty(isAttribute = true)
     private String name;
 

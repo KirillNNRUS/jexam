@@ -18,7 +18,7 @@ public class Main {
     static List<String> onlyTestCaseList = new ArrayList<>();
     static String stringForParse = "";
     static Pattern pattern = Pattern.compile("<testcase(.*?)/>|<testcase(.*?)</testcase>");
-    static List<TestCaseHandler> testCaseHandlerList = new ArrayList<>();
+    static List<TestCaseFull> testCaseFullList = new ArrayList<>();
     static List<TestCase> testCaseList = new ArrayList<>();
     static TestResult testResult = new TestResult();
 
@@ -38,69 +38,69 @@ public class Main {
 
     public static void createTestSuiteList() {
         TestCase testCase;
-        for (TestCaseHandler testCaseHandler : testCaseHandlerList) {
-            testCase = new TestCase(testCaseHandler.getName(), testCaseHandler.getClassName(), TestCaseStatus.PASSED);
+        for (TestCaseFull testCaseFull : testCaseFullList) {
+            testCase = new TestCase(testCaseFull.getName(), testCaseFull.getClassName(), TestCaseStatus.PASSED);
 
-            if (testCaseHandler.getSkipped() != null) {
+            if (testCaseFull.getSkipped() != null) {
                 testCase.setStatus(TestCaseStatus.SKIPPED);
-                if (testCaseHandler.getSkipped().getExtendedMessage() != null
-                        && !testCaseHandler.getSkipped().getExtendedMessage().equals("")) {
+                if (testCaseFull.getSkipped().getExtendedMessage() != null
+                        && !testCaseFull.getSkipped().getExtendedMessage().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getSkipped().getExtendedMessage());
+                    testCase.setDetails(testCaseFull.getSkipped().getExtendedMessage());
 
-                } else if (testCaseHandler.getSkipped().getMessage() != null
-                        && !testCaseHandler.getSkipped().getMessage().equals("")) {
+                } else if (testCaseFull.getSkipped().getMessage() != null
+                        && !testCaseFull.getSkipped().getMessage().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getSkipped().getMessage());
+                    testCase.setDetails(testCaseFull.getSkipped().getMessage());
 
-                } else if (testCaseHandler.getSkipped().getType() != null
-                        && !testCaseHandler.getSkipped().getType().equals("")) {
+                } else if (testCaseFull.getSkipped().getType() != null
+                        && !testCaseFull.getSkipped().getType().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getSkipped().getType());
+                    testCase.setDetails(testCaseFull.getSkipped().getType());
 
                 } else {
                     testCase.setDetails("No details");
                 }
             }
 
-            if (testCaseHandler.getError() != null) {
+            if (testCaseFull.getError() != null) {
                 testCase.setStatus(TestCaseStatus.ERROR);
-                if (testCaseHandler.getError().getExtendedMessage() != null
-                        && !testCaseHandler.getError().getExtendedMessage().equals("")) {
+                if (testCaseFull.getError().getExtendedMessage() != null
+                        && !testCaseFull.getError().getExtendedMessage().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getError().getExtendedMessage());
+                    testCase.setDetails(testCaseFull.getError().getExtendedMessage());
 
-                } else if (testCaseHandler.getError().getMessage() != null
-                        && !testCaseHandler.getError().getMessage().equals("")) {
+                } else if (testCaseFull.getError().getMessage() != null
+                        && !testCaseFull.getError().getMessage().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getError().getMessage());
+                    testCase.setDetails(testCaseFull.getError().getMessage());
 
-                } else if (testCaseHandler.getError().getType() != null
-                        && !testCaseHandler.getError().getType().equals("")) {
+                } else if (testCaseFull.getError().getType() != null
+                        && !testCaseFull.getError().getType().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getError().getType());
+                    testCase.setDetails(testCaseFull.getError().getType());
 
                 } else {
                     testCase.setDetails("No details");
                 }
             }
 
-            if (testCaseHandler.getFailure() != null) {
+            if (testCaseFull.getFailure() != null) {
                 testCase.setStatus(TestCaseStatus.FAILED);
-                if (testCaseHandler.getFailure().getExtendedMessage() != null
-                        && !testCaseHandler.getFailure().getExtendedMessage().equals("")) {
+                if (testCaseFull.getFailure().getExtendedMessage() != null
+                        && !testCaseFull.getFailure().getExtendedMessage().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getFailure().getExtendedMessage());
+                    testCase.setDetails(testCaseFull.getFailure().getExtendedMessage());
 
-                } else if (testCaseHandler.getFailure().getMessage() != null
-                        && !testCaseHandler.getFailure().getMessage().equals("")) {
+                } else if (testCaseFull.getFailure().getMessage() != null
+                        && !testCaseFull.getFailure().getMessage().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getFailure().getMessage());
+                    testCase.setDetails(testCaseFull.getFailure().getMessage());
 
-                } else if (testCaseHandler.getFailure().getType() != null
-                        && !testCaseHandler.getFailure().getType().equals("")) {
+                } else if (testCaseFull.getFailure().getType() != null
+                        && !testCaseFull.getFailure().getType().equals("")) {
 
-                    testCase.setDetails(testCaseHandler.getFailure().getType());
+                    testCase.setDetails(testCaseFull.getFailure().getType());
 
                 } else {
                     testCase.setDetails("No details");
@@ -168,7 +168,7 @@ public class Main {
         try {
             XmlMapper xmlMapper = new XmlMapper();
 
-            testCaseHandlerList = xmlMapper.readValue(stringForParse, new TypeReference<List<TestCaseHandler>>() {
+            testCaseFullList = xmlMapper.readValue(stringForParse, new TypeReference<List<TestCaseFull>>() {
             });
 
             System.out.println("");
